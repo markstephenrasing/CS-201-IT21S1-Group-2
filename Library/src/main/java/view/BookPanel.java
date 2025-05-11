@@ -39,6 +39,7 @@ public class BookPanel extends javax.swing.JPanel {
         lBookTitle.setForeground(new java.awt.Color(0, 0, 0));
         lBookTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lBookTitle.setText("Title");
+        lBookTitle.setFocusCycleRoot(true);
         lBookTitle.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

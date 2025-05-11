@@ -9,12 +9,12 @@ package model;
  * @author Baron
  */
 public class Book {
-    final private String bookId;
+    final private int bookId;
     final private String title;
     final private String author;
     private boolean isAvailable;
 
-    public Book(String bookId, String title, String author) {
+    public Book(int bookId, String title, String author) {
         this.bookId = bookId;
         this.title = String.format("<html><div style='text-align: center;'>%s</div></html>", title);
         this.author = String.format("<html><div style='text-align: center;'>%s</div></html>", author);
@@ -22,7 +22,7 @@ public class Book {
     }
 
     // Getters and Setters
-    public String getBookId() {
+    public int getBookId() {
         return bookId;
     }
 

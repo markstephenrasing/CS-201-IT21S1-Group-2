@@ -18,8 +18,10 @@ public class BookController {
     
 
 
-    public void populateBooks(){
+public void updateBookContainer(){
         JPanel bookContainer = mainPage.getBookContainer();
+        bookContainer.removeAll();
+
 
         if(books.size() == 0){
             BookPanel bookPanel = new BookPanel();
@@ -35,7 +37,16 @@ public class BookController {
             }
         }
 
-        mainPage.revalidate();
-        mainPage.repaint();
+        bookContainer.revalidate();
+        bookContainer.repaint();
     }
+
+    public void addBook(String title, String author){
+        int BookId = books.size() + 1;
+        Book book = new Book(BookId, title, author);
+        books.add(book);
+        updateBookContainer();
+    }
+    
+
 }

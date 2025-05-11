@@ -5,6 +5,7 @@
 package view;
 
 import javax.swing.JPanel;
+import controller.BookController;
 
 
 /**
@@ -12,6 +13,8 @@ import javax.swing.JPanel;
  * @author Baron
  */
 public class MainPage extends javax.swing.JFrame {
+
+    BookController bookController;
 
     /**
      * Creates new form MainPage
@@ -31,13 +34,12 @@ public class MainPage extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         lHome = new javax.swing.JLabel();
-        lShelf = new javax.swing.JLabel();
+        lAddBook = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel3 = new javax.swing.JPanel();
         tFSearchBar = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         pBookContainer = new javax.swing.JPanel();
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 50), new java.awt.Dimension(0, 50), new java.awt.Dimension(32767, 50));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,11 +47,22 @@ public class MainPage extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        lHome.setForeground(new java.awt.Color(102, 102, 102));
+        lHome.setForeground(new java.awt.Color(0, 0, 0));
         lHome.setText("Home");
 
-        lShelf.setForeground(new java.awt.Color(102, 102, 102));
-        lShelf.setText("Add Book");
+        lAddBook.setForeground(new java.awt.Color(102, 102, 102));
+        lAddBook.setText("Add Book");
+        lAddBook.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lAddBookMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lAddBookMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lAddBookMouseExited(evt);
+            }
+        });
 
         jScrollPane1.setBorder(null);
         jScrollPane1.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -58,7 +71,15 @@ public class MainPage extends javax.swing.JFrame {
 
         tFSearchBar.setBackground(new java.awt.Color(255, 255, 255));
         tFSearchBar.setText("Search");
-        tFSearchBar.setEnabled(false);
+        tFSearchBar.setToolTipText("");
+        tFSearchBar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tFSearchBarFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tFSearchBarFocusLost(evt);
+            }
+        });
         tFSearchBar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tFSearchBarActionPerformed(evt);
@@ -109,7 +130,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lHome, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lShelf, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lAddBook, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 775, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -119,7 +140,7 @@ public class MainPage extends javax.swing.JFrame {
                 .addGap(116, 116, 116)
                 .addComponent(lHome)
                 .addGap(18, 18, 18)
-                .addComponent(lShelf)
+                .addComponent(lAddBook)
                 .addContainerGap(374, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
@@ -129,18 +150,13 @@ public class MainPage extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(767, Short.MAX_VALUE)
-                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(209, 209, 209))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 29, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(32, 32, 32)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -161,6 +177,54 @@ public class MainPage extends javax.swing.JFrame {
     private void tFSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tFSearchBarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tFSearchBarActionPerformed
+
+    private void lAddBookMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lAddBookMouseEntered
+        lAddBook.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_lAddBookMouseEntered
+
+    private void lAddBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lAddBookMouseClicked
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                AddBookDialog dialog = new AddBookDialog(new javax.swing.JFrame(), true, bookController);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_lAddBookMouseClicked
+
+    private void lAddBookMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lAddBookMouseExited
+        lAddBook.setForeground(new java.awt.Color(102, 102, 102));
+    }//GEN-LAST:event_lAddBookMouseExited
+
+    private void tFSearchBarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tFSearchBarFocusGained
+        if (tFSearchBar.getText().equals("Search")) {
+            tFSearchBar.setText("");
+        }
+    }//GEN-LAST:event_tFSearchBarFocusGained
+
+    private void tFSearchBarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tFSearchBarFocusLost
+        if (tFSearchBar.getText().isEmpty()) {
+                tFSearchBar.setText("Search");
+        }
+    }//GEN-LAST:event_tFSearchBarFocusLost
+
+    public void setBookController(BookController bookController) {
+        this.bookController = bookController;
+    }
+
+    public BookController getBookController() {
+        return bookController;
+    }
+
+    public JPanel getBookContainer() {
+        return pBookContainer;
+    }
 
     /**
      * @param args the command line arguments
@@ -201,23 +265,14 @@ public class MainPage extends javax.swing.JFrame {
         this.setVisible(true);
     }
 
-    public void hide() {
-        this.setVisible(false);
-    }
-
-    public JPanel getBookContainer() {
-        return pBookContainer;
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.Box.Filler filler1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lAddBook;
     private javax.swing.JLabel lHome;
-    private javax.swing.JLabel lShelf;
     private javax.swing.JPanel pBookContainer;
     private javax.swing.JTextField tFSearchBar;
     // End of variables declaration//GEN-END:variables

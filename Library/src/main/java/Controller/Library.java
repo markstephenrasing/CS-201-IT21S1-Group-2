@@ -15,7 +15,8 @@ public class Library {
         javax.swing.SwingUtilities.invokeLater(() -> {
             MainPage view = new MainPage();
             BookController bookController = new BookController(view);
-            bookController.populateBooks();
+            bookController.updateBookContainer();
+            view.setBookController(bookController);
             view.display();
         });
     }
