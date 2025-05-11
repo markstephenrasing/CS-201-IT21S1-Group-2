@@ -2,7 +2,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  */
 
-package Controller;
+package controller;
+import view.MainPage;
 
 /**
  *
@@ -11,6 +12,11 @@ package Controller;
 public class Library {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            MainPage view = new MainPage();
+            BookController bookController = new BookController(view);
+            bookController.populateBooks();
+            view.display();
+        });
     }
 }

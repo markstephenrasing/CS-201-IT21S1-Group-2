@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Model;
+package model;
 
 /**
  *
@@ -16,8 +16,8 @@ public class Book {
 
     public Book(String bookId, String title, String author) {
         this.bookId = bookId;
-        this.title = title;
-        this.author = author;
+        this.title = String.format("<html><div style='text-align: center;'>%s</div></html>", title);
+        this.author = String.format("<html><div style='text-align: center;'>%s</div></html>", author);
         this.isAvailable = true; // Initially, all books are available.
     }
 
