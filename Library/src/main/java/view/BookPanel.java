@@ -4,18 +4,30 @@
  */
 package view;
 
+import model.Book;
 /**
  *
  * @author Baron
  */
 public class BookPanel extends javax.swing.JPanel {
+    Book book;
+    MainPage mainPage;
 
     /**
      * Creates new form Book
      */
-    public BookPanel() {
+    public BookPanel(Book book, MainPage mainPage) {
+        this.mainPage = mainPage;
+        this.book = book;
         initComponents();
     }
+    
+    public BookPanel() {
+        this.book = null;
+        initComponents();
+    }
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -35,6 +47,17 @@ public class BookPanel extends javax.swing.JPanel {
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2));
         setMinimumSize(new java.awt.Dimension(100, 127));
         setPreferredSize(new java.awt.Dimension(100, 127));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                formMouseExited(evt);
+            }
+        });
         setLayout(new java.awt.GridBagLayout());
 
         lBookTitle.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -74,7 +97,7 @@ public class BookPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 6);
         add(lAuthor, gridBagConstraints);
 
-        lAvailable.setForeground(new java.awt.Color(0, 0, 0));
+        lAvailable.setForeground(new java.awt.Color(0, 225, 0));
         lAvailable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lAvailable.setText("Available");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -82,6 +105,33 @@ public class BookPanel extends javax.swing.JPanel {
         gridBagConstraints.gridy = 3;
         add(lAvailable, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        setForeground(new java.awt.Color(192, 192, 192)); 
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(192, 192, 192), 2)); 
+    }//GEN-LAST:event_formMouseEntered
+
+    private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
+        setBorder(null);
+        setForeground(new java.awt.Color(255, 255, 255));
+    }//GEN-LAST:event_formMouseExited
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+            CheckoutOrReturnBookDialog dialog = new CheckoutOrReturnBookDialog(new javax.swing.JFrame(), true, BookPanel.this);
+                dialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+                dialog.setVisible(true);
+            }
+        });
+    }//GEN-LAST:event_formMouseClicked
+
+    public void onSetAvailability(Book book){
+        if (mainPage != null) {
+            mainPage.onSetAvailability(book);
+        }
+        setAvailable(book.isAvailable());
+    }
 
     public void setBookTitle(String title) {
         lBookTitle.setText(title);
@@ -97,6 +147,11 @@ public class BookPanel extends javax.swing.JPanel {
 
     public void setAvailable(Boolean available) {
         lAvailable.setText(available ? "Available" : "Not Available");
+        if (available) {
+            lAvailable.setForeground(new java.awt.Color(0, 253, 0)); // Green
+        } else {
+            lAvailable.setForeground(new java.awt.Color(255, 0, 0)); // Red
+        }
     }
 
     public void setAvailable(String available) {
@@ -105,6 +160,14 @@ public class BookPanel extends javax.swing.JPanel {
 
     public void setjBy(String s){
         jBy.setText(s);
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public MainPage getMainPage() {
+        return mainPage;
     }
 
 

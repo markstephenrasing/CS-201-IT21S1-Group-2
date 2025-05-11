@@ -17,7 +17,6 @@ public class Library {
             MainPage view = new MainPage();
             BookController bookController = new BookController(view, new ArrayList<>());
             bookController.updateBookContainer(bookController.getBooks());
-            view.setBookController(bookController);
             view.display();
         });
     }

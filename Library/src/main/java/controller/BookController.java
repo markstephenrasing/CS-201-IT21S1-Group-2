@@ -7,13 +7,16 @@ import view.BookPanel;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class BookController {
+public class BookController implements BookEventListener {
     final private MainPage mainPage;
     private ArrayList<Book> books;
 
-    public BookController(MainPage mainPage, ArrayList<Book> books) {
+    
+
+    public BookController(MainPage mainPage, ArrayList<Book> books){
         this.books = books;
         this.mainPage = mainPage;
+        this.mainPage.setBookEventListener(this);
     }
 
     public ArrayList<Book> getBooks(){
@@ -28,12 +31,21 @@ public class BookController {
         if(books.size() == 0){
             BookPanel bookPanel = new BookPanel();
             bookPanel.setBookTitle("<html><div style='text-align: center;'>No books available</div></html>");
+            bookPanel.setAuthor("");
             bookPanel.setAvailable("");
             bookPanel.setjBy("");
+            
+            for (java.awt.event.MouseListener listener : bookPanel.getMouseListeners()) {
+            bookPanel.removeMouseListener(listener);
+            }
+            for (java.awt.event.MouseMotionListener listener : bookPanel.getMouseMotionListeners()) {
+            bookPanel.removeMouseMotionListener(listener);
+            }
+
             bookContainer.add(bookPanel);
         } else{
             for(Book book : books){
-                BookPanel bookPanel = new BookPanel();
+                BookPanel bookPanel = new BookPanel(book, mainPage);
                 bookPanel.setBookTitle(book.getTitle());
                 bookPanel.setAuthor(book.getAuthor());
                 bookPanel.setAvailable(book.isAvailable());
@@ -94,5 +106,20 @@ public class BookController {
             updateBookContainer(searchResults);
         }
     }
-    
+
+    @Override
+    public void onBookUpdated(ArrayList<Book> books) {
+        updateBookContainer(books);
+    }
+
+    @Override
+    public void onBookSearch(String searchTerm) {
+        searchBookByTitleOrAuthor(searchTerm);
+    }
+
+    @Override
+    public void onAddBook(String title, String author) {
+        addBook(title, author);
+    }
+
 }

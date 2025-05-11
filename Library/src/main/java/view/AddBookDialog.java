@@ -4,7 +4,7 @@
  */
 package view;
 
-import controller.BookController;
+import controller.BookEventListener;
 import javax.swing.SwingUtilities;
 
 /**
@@ -12,17 +12,16 @@ import javax.swing.SwingUtilities;
  * @author Baron
  */
 public class AddBookDialog extends javax.swing.JDialog {
+    private final BookEventListener bookEventListener;
 
-    private BookController bookController;
 
     /**
      * Creates new form AddBookDialog
      */
-    public AddBookDialog(java.awt.Frame parent, boolean modal, BookController bookController) {
+    public AddBookDialog(java.awt.Frame parent, boolean modal, BookEventListener bookEventListener) {
         super(parent, modal);
-        this.bookController = bookController;
+        this.bookEventListener = bookEventListener;
         initComponents();
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         SwingUtilities.invokeLater(() -> {
             jPanel1.requestFocusInWindow(); 
@@ -56,6 +55,11 @@ public class AddBookDialog extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 20, 30, 20));
         jPanel1.setForeground(new java.awt.Color(102, 255, 255));
+        jPanel1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPanel1KeyPressed(evt);
+            }
+        });
         java.awt.GridBagLayout jPanel1Layout = new java.awt.GridBagLayout();
         jPanel1Layout.columnWidths = new int[] {0, 17, 0, 17, 0, 17, 0, 17, 0};
         jPanel1Layout.rowHeights = new int[] {0, 5, 0, 5, 0};
@@ -168,7 +172,7 @@ public class AddBookDialog extends javax.swing.JDialog {
     private void bAddBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddBookActionPerformed
         final String title = tFBookTitle.getText();
         final String author = tFBookAuthor.getText();
-        bookController.addBook(title, author);
+        bookEventListener.onAddBook(title, author);
         tFBookTitle.setText("Input Book Title here");
         tFBookAuthor.setText("Input Book Author here");
     }//GEN-LAST:event_bAddBookActionPerformed
@@ -205,21 +209,25 @@ public class AddBookDialog extends javax.swing.JDialog {
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
             final String title = tFBookTitle.getText();
             final String author = tFBookAuthor.getText();
-            bookController.addBook(title, author);
+            bookEventListener.onAddBook(title, author);
             tFBookTitle.setText("Input Book Title here");
             tFBookAuthor.setText("Input Book Author here");
             tFBookTitle.requestFocusInWindow();
-        }
+        } else if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE) {
+            this.dispose();
+        } 
     }//GEN-LAST:event_tFBookTitleKeyPressed
 
     private void tFBookAuthorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tFBookAuthorKeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
             final String title = tFBookTitle.getText();
             final String author = tFBookAuthor.getText();
-            bookController.addBook(title, author);
+            bookEventListener.onAddBook(title, author);
             tFBookTitle.setText("Input Book Title here");
             tFBookAuthor.setText("Input Book Author here");
             tFBookTitle.requestFocusInWindow();
+        } else if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE) {
+            this.dispose();
         }
 
     }//GEN-LAST:event_tFBookAuthorKeyPressed
@@ -229,6 +237,12 @@ public class AddBookDialog extends javax.swing.JDialog {
             this.dispose();
         }
     }//GEN-LAST:event_formKeyPressed
+
+    private void jPanel1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPanel1KeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_jPanel1KeyPressed
 
     /**
      * @param args the command line arguments

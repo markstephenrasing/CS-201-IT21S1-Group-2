@@ -4,10 +4,13 @@
  */
 package view;
 
+import java.util.ArrayList;
+
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import controller.BookController;
+import model.Book;
+import controller.BookEventListener;
 
 
 /**
@@ -16,7 +19,9 @@ import controller.BookController;
  */
 public class MainPage extends javax.swing.JFrame {
 
-    BookController bookController;
+    BookEventListener bookEventListener;
+
+
 
     /**
      * Creates new form MainPage
@@ -192,7 +197,7 @@ public class MainPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tFSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tFSearchBarActionPerformed
-        bookController.searchBookByTitleOrAuthor(tFSearchBar.getText());
+        bookEventListener.onBookSearch(tFSearchBar.getText());
         lHome.setForeground(new java.awt.Color(102, 102, 102));
         tFSearchBar.setText("");
         tFSearchBar.requestFocusInWindow();
@@ -210,7 +215,7 @@ public class MainPage extends javax.swing.JFrame {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AddBookDialog dialog = new AddBookDialog(new javax.swing.JFrame(), true, bookController);
+                AddBookDialog dialog = new AddBookDialog(new javax.swing.JFrame(), true, bookEventListener);
                 dialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
                 dialog.setVisible(true);
             }
@@ -240,20 +245,28 @@ public class MainPage extends javax.swing.JFrame {
     }//GEN-LAST:event_lHomeMouseExited
 
     private void lHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lHomeMouseClicked
-        bookController.updateBookContainer(bookController.getBooks());
+        bookEventListener.onBookUpdated(bookEventListener.getBooks());
         lHome.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_lHomeMouseClicked
 
-    public void setBookController(BookController bookController) {
-        this.bookController = bookController;
-    }
-
-    public BookController getBookController() {
-        return bookController;
-    }
-
     public JPanel getBookContainer() {
         return pBookContainer;
+    }
+
+    public void onSetAvailability(Book book){
+        ArrayList<Book> books = bookEventListener.getBooks();
+        for (int i = 0; i < books.size(); i++) {
+            if (books.get(i).getBookId() == book.getBookId()) {
+                books.set(i, book);
+                break;
+            }
+        }
+        bookEventListener.onBookUpdated(books);
+        lHome.setForeground(new java.awt.Color(0, 0, 0));
+    }
+    
+    public void setBookEventListener(BookEventListener bookEventListener) {
+        this.bookEventListener = bookEventListener;
     }
 
     /**
