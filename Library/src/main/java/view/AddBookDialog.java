@@ -22,6 +22,8 @@ public class AddBookDialog extends javax.swing.JDialog {
         super(parent, modal);
         this.bookController = bookController;
         initComponents();
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(null);
         SwingUtilities.invokeLater(() -> {
             jPanel1.requestFocusInWindow(); 
         });
@@ -45,6 +47,11 @@ public class AddBookDialog extends javax.swing.JDialog {
         bCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                formKeyPressed(evt);
+            }
+        });
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 20, 30, 20));
@@ -71,6 +78,11 @@ public class AddBookDialog extends javax.swing.JDialog {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tFBookTitleFocusLost(evt);
+            }
+        });
+        tFBookTitle.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tFBookTitleKeyPressed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -100,6 +112,11 @@ public class AddBookDialog extends javax.swing.JDialog {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 tFBookAuthorFocusLost(evt);
+            }
+        });
+        tFBookAuthor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tFBookAuthorKeyPressed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -183,6 +200,35 @@ public class AddBookDialog extends javax.swing.JDialog {
             tFBookAuthor.setText("Input Book Author here");
         }
     }//GEN-LAST:event_tFBookAuthorFocusLost
+
+    private void tFBookTitleKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tFBookTitleKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            final String title = tFBookTitle.getText();
+            final String author = tFBookAuthor.getText();
+            bookController.addBook(title, author);
+            tFBookTitle.setText("Input Book Title here");
+            tFBookAuthor.setText("Input Book Author here");
+            tFBookTitle.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_tFBookTitleKeyPressed
+
+    private void tFBookAuthorKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tFBookAuthorKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            final String title = tFBookTitle.getText();
+            final String author = tFBookAuthor.getText();
+            bookController.addBook(title, author);
+            tFBookTitle.setText("Input Book Title here");
+            tFBookAuthor.setText("Input Book Author here");
+            tFBookTitle.requestFocusInWindow();
+        }
+
+    }//GEN-LAST:event_tFBookAuthorKeyPressed
+
+    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ESCAPE) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_formKeyPressed
 
     /**
      * @param args the command line arguments

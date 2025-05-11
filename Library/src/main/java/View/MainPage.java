@@ -23,6 +23,7 @@ public class MainPage extends javax.swing.JFrame {
      */
     public MainPage() {
         initComponents();
+        setLocationRelativeTo(null);
         SwingUtilities.invokeLater(() -> {
             pBookContainer.requestFocusInWindow(); 
         });
@@ -54,6 +55,17 @@ public class MainPage extends javax.swing.JFrame {
 
         lHome.setForeground(new java.awt.Color(0, 0, 0));
         lHome.setText("Home");
+        lHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lHomeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lHomeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lHomeMouseExited(evt);
+            }
+        });
 
         lAddBook.setForeground(new java.awt.Color(102, 102, 102));
         lAddBook.setText("Add Book");
@@ -180,32 +192,30 @@ public class MainPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tFSearchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tFSearchBarActionPerformed
-        // TODO add your handling code here:
+        bookController.searchBookByTitleOrAuthor(tFSearchBar.getText());
+        lHome.setForeground(new java.awt.Color(102, 102, 102));
+        tFSearchBar.setText("");
+        tFSearchBar.requestFocusInWindow();
     }//GEN-LAST:event_tFSearchBarActionPerformed
 
     private void lAddBookMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lAddBookMouseEntered
         lAddBook.setForeground(new java.awt.Color(0, 0, 0));
     }//GEN-LAST:event_lAddBookMouseEntered
 
+    private void lAddBookMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lAddBookMouseExited
+        lAddBook.setForeground(new java.awt.Color(102, 102, 102));
+    }//GEN-LAST:event_lAddBookMouseExited
+
     private void lAddBookMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lAddBookMouseClicked
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 AddBookDialog dialog = new AddBookDialog(new javax.swing.JFrame(), true, bookController);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
+                dialog.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
                 dialog.setVisible(true);
             }
         });
     }//GEN-LAST:event_lAddBookMouseClicked
-
-    private void lAddBookMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lAddBookMouseExited
-        lAddBook.setForeground(new java.awt.Color(102, 102, 102));
-    }//GEN-LAST:event_lAddBookMouseExited
 
     private void tFSearchBarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tFSearchBarFocusGained
         if (tFSearchBar.getText().equals("Search")) {
@@ -218,6 +228,21 @@ public class MainPage extends javax.swing.JFrame {
                 tFSearchBar.setText("Search");
         }
     }//GEN-LAST:event_tFSearchBarFocusLost
+
+    private void lHomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lHomeMouseEntered
+        if (lHome.getForeground().equals(new java.awt.Color(102, 102, 102))) {
+            lHome.setForeground(new java.awt.Color(0, 0, 0));
+        }
+    }//GEN-LAST:event_lHomeMouseEntered
+
+    private void lHomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lHomeMouseExited
+        lHome.setForeground(new java.awt.Color(102, 102, 102));
+    }//GEN-LAST:event_lHomeMouseExited
+
+    private void lHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lHomeMouseClicked
+        bookController.updateBookContainer(bookController.getBooks());
+        lHome.setForeground(new java.awt.Color(0, 0, 0));
+    }//GEN-LAST:event_lHomeMouseClicked
 
     public void setBookController(BookController bookController) {
         this.bookController = bookController;

@@ -27,11 +27,13 @@ public class BookPanel extends javax.swing.JPanel {
         java.awt.GridBagConstraints gridBagConstraints;
 
         lBookTitle = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jBy = new javax.swing.JLabel();
         lAuthor = new javax.swing.JLabel();
+        lAvailable = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 2, 1, 2));
+        setMinimumSize(new java.awt.Dimension(100, 127));
         setPreferredSize(new java.awt.Dimension(100, 127));
         setLayout(new java.awt.GridBagLayout());
 
@@ -49,18 +51,16 @@ public class BookPanel extends javax.swing.JPanel {
         gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 6);
         add(lBookTitle, gridBagConstraints);
 
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("By:");
-        jLabel1.setPreferredSize(new java.awt.Dimension(100, 127));
+        jBy.setForeground(new java.awt.Color(0, 0, 0));
+        jBy.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jBy.setText("By:");
+        jBy.setPreferredSize(new java.awt.Dimension(100, 127));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.ipadx = 72;
-        gridBagConstraints.ipady = 5;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 0, 6);
-        add(jLabel1, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 6);
+        add(jBy, gridBagConstraints);
 
         lAuthor.setForeground(new java.awt.Color(0, 0, 0));
         lAuthor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -70,9 +70,17 @@ public class BookPanel extends javax.swing.JPanel {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.ipadx = 51;
-        gridBagConstraints.ipady = 17;
-        gridBagConstraints.insets = new java.awt.Insets(6, 6, 6, 6);
+        gridBagConstraints.ipady = 4;
+        gridBagConstraints.insets = new java.awt.Insets(0, 6, 0, 6);
         add(lAuthor, gridBagConstraints);
+
+        lAvailable.setForeground(new java.awt.Color(0, 0, 0));
+        lAvailable.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lAvailable.setText("Available");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        add(lAvailable, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
     public void setBookTitle(String title) {
@@ -83,10 +91,27 @@ public class BookPanel extends javax.swing.JPanel {
         lAuthor.setText(author);
     }
 
+    public Boolean isAvailable(){
+        return lAvailable.getText().equals("Available") ? true : false;
+    }
+
+    public void setAvailable(Boolean available) {
+        lAvailable.setText(available ? "Available" : "Not Available");
+    }
+
+    public void setAvailable(String available) {
+        lAvailable.setText(available);
+    }
+
+    public void setjBy(String s){
+        jBy.setText(s);
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jBy;
     private javax.swing.JLabel lAuthor;
+    private javax.swing.JLabel lAvailable;
     private javax.swing.JLabel lBookTitle;
     // End of variables declaration//GEN-END:variables
 }

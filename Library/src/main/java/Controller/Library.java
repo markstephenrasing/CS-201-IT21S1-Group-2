@@ -4,6 +4,7 @@
 
 package controller;
 import view.MainPage;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,8 +15,8 @@ public class Library {
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(() -> {
             MainPage view = new MainPage();
-            BookController bookController = new BookController(view);
-            bookController.updateBookContainer();
+            BookController bookController = new BookController(view, new ArrayList<>());
+            bookController.updateBookContainer(bookController.getBooks());
             view.setBookController(bookController);
             view.display();
         });
