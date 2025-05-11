@@ -5,6 +5,8 @@
 package view;
 
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
 import controller.BookController;
 
 
@@ -21,6 +23,9 @@ public class MainPage extends javax.swing.JFrame {
      */
     public MainPage() {
         initComponents();
+        SwingUtilities.invokeLater(() -> {
+            pBookContainer.requestFocusInWindow(); 
+        });
     }
 
     /**
